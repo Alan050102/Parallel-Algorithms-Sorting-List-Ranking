@@ -4,7 +4,7 @@ def list_ranking(rank, size, local_list, full_list):
     local_rankings = [0] * len(local_list)
     for i in range(len(local_list)):
         local_rankings[i] = sum(1 for j in range(len(local_list)) if j != i and local_list[j] < local_list[i])
-    all_rankings = comm.gather(local_rankings, root=0)  
+    all_rankings = comm.gather(local_rankings)  
     if rank == 0:
         flattened_rankings = [item for sublist in all_rankings for item in sublist]
         
